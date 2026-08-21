@@ -1,0 +1,41 @@
+Device        : cuda
+Paper framing : Option B — Adversarial Lexical Overlap Robustness
+Seeds         : [42, 43, 44]  (n=3, df=2)
+Datasets      : MRPC, QQP, PAWS, HANS (zero-shot)
+Free VRAM     : 15.9 GB
+✅ Collator ready  (num_workers=0 — no pickle error)
+✅ JepaBertPair — online BERT receives full JEPA gradient (stop_grad on TARGET only)
+✅ HybridJepaSimCSE + SimCSEBertPair ready (detach removed, s2 bug fixed)
+✅ Training utilities ready
+   Lambda warmup: True  EMA: 0.999  Warmup: 0.2
+✅ Stats: bootstrap (2,000 samples) + Cohen's d + paired t-test
+✅ Lambda selector  (4 candidates, TUNE_EPOCHS=1)
+Loading all datasets (one-time)...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+HANS loaded from GitHub: 30,000 eval examples
+  heuristics: ['constituent', 'lexical_overlap', 'subsequence']
+MRPC  3,668 / 408 / 1,725
+QQP   18,000 / 5,000 / 2,000
+PAWS  20,000 / 5,000 / 8,000
+HANS  30,000 examples (zero-shot eval only)
+STS-B 1,500 (diagnostic only)
+✅ Datasets loaded
+run_backbone() ready -- MRPC + QQP + PAWS  [crash-safe, per-dataset checkpointing]
+LAMBDA_WARMUP = False
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 20805.18it/s]
+  [PAWS/lam1.0-nowarmup/s42 ep1/3] loss=1.0426 acc=0.556 aux=0.3567 | val_f1=0.5669 | 152s
+  [PAWS/lam1.0-nowarmup/s42 ep2/3] loss=0.6472 acc=0.655 aux=0.0474 | val_f1=0.7366 | 154s
+  [PAWS/lam1.0-nowarmup/s42 ep3/3] loss=0.4469 acc=0.795 aux=0.0198 | val_f1=0.7901 | 157s
+CONTROL seed 42: F1 = 0.7880
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8920.10it/s]
+  [PAWS/lam1.0-nowarmup/s43 ep1/3] loss=1.0424 acc=0.561 aux=0.3597 | val_f1=0.3885 | 153s
+  [PAWS/lam1.0-nowarmup/s43 ep2/3] loss=0.5648 acc=0.720 aux=0.0405 | val_f1=0.8027 | 153s
+  [PAWS/lam1.0-nowarmup/s43 ep3/3] loss=0.3816 acc=0.833 aux=0.0154 | val_f1=0.8205 | 152s
+CONTROL seed 43: F1 = 0.8116
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 22601.22it/s]
+  [PAWS/lam1.0-nowarmup/s44 ep1/3] loss=1.0348 acc=0.558 aux=0.3502 | val_f1=0.4152 | 152s
+  [PAWS/lam1.0-nowarmup/s44 ep2/3] loss=0.6342 acc=0.663 aux=0.0414 | val_f1=0.7592 | 155s
+  [PAWS/lam1.0-nowarmup/s44 ep3/3] loss=0.4358 acc=0.798 aux=0.0165 | val_f1=0.8038 | 151s
+CONTROL seed 44: F1 = 0.7915
+CONTROL RESULT lam=1.0 no-warmup: 0.7970 +- 0.0104
+STAGE 4 COMPLETE

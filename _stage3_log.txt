@@ -1,0 +1,173 @@
+Device        : cuda
+Paper framing : Option B — Adversarial Lexical Overlap Robustness
+Seeds         : [42, 43, 44]  (n=3, df=2)
+Datasets      : MRPC, QQP, PAWS, HANS (zero-shot)
+Free VRAM     : 15.9 GB
+✅ Collator ready  (num_workers=0 — no pickle error)
+✅ JepaBertPair — online BERT receives full JEPA gradient (stop_grad on TARGET only)
+✅ HybridJepaSimCSE + SimCSEBertPair ready (detach removed, s2 bug fixed)
+✅ Training utilities ready
+   Lambda warmup: True  EMA: 0.999  Warmup: 0.2
+✅ Stats: bootstrap (2,000 samples) + Cohen's d + paired t-test
+✅ Lambda selector  (4 candidates, TUNE_EPOCHS=1)
+Loading all datasets (one-time)...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+HANS loaded from GitHub: 30,000 eval examples
+  heuristics: ['constituent', 'lexical_overlap', 'subsequence']
+MRPC  3,668 / 408 / 1,725
+QQP   18,000 / 5,000 / 2,000
+PAWS  20,000 / 5,000 / 8,000
+HANS  30,000 examples (zero-shot eval only)
+STS-B 1,500 (diagnostic only)
+✅ Datasets loaded
+run_backbone() ready -- MRPC + QQP + PAWS  [crash-safe, per-dataset checkpointing]
+========== R-5 mask ablation ==========
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 9104.49it/s]
+  positive-only (shipped) seed 42: test F1 = 0.7999
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 23019.30it/s]
+  positive-only (shipped) seed 43: test F1 = 0.7895
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 9004.48it/s]
+  positive-only (shipped) seed 44: test F1 = 0.7915
+positive-only (shipped): F1 0.7936 ± 0.0045 | collapse: {'mean_feature_std': 0.015271502546966076, 'effective_rank': 57.451271057128906, 'dim': 256}
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 22627.83it/s]
+  all-pairs seed 42: test F1 = 0.8020
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 20679.69it/s]
+  all-pairs seed 43: test F1 = 0.7944
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 15998.26it/s]
+  all-pairs seed 44: test F1 = 0.7931
+all-pairs: F1 0.7965 ± 0.0039 | collapse: {'mean_feature_std': 0.01673780381679535, 'effective_rank': 50.37375259399414, 'dim': 256}
+
+✅ R-5 done → results/mask_ablation.json (report both rows + effective rank in the paper)
+========== R-7 lambda ablation ==========
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8442.43it/s]
+  [mrpc/lam0.05/s42 ep1/3] loss=0.6036 acc=0.676 aux=0.5955 | val_f1=0.8408 | 28s
+  [mrpc/lam0.05/s42 ep2/3] loss=0.4444 acc=0.793 aux=0.1907 | val_f1=0.8706 | 27s
+  [mrpc/lam0.05/s42 ep3/3] loss=0.3304 acc=0.862 aux=0.1525 | val_f1=0.8825 | 27s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8490.67it/s]
+  [mrpc/lam0.05/s43 ep1/3] loss=0.6024 acc=0.688 aux=0.6418 | val_f1=0.8249 | 27s
+  [mrpc/lam0.05/s43 ep2/3] loss=0.4331 acc=0.794 aux=0.1958 | val_f1=0.8789 | 27s
+  [mrpc/lam0.05/s43 ep3/3] loss=0.3157 acc=0.870 aux=0.1546 | val_f1=0.8789 | 27s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 7924.63it/s]
+  [mrpc/lam0.05/s44 ep1/3] loss=0.6058 acc=0.683 aux=0.5884 | val_f1=0.8441 | 27s
+  [mrpc/lam0.05/s44 ep2/3] loss=0.4528 acc=0.787 aux=0.1797 | val_f1=0.8630 | 27s
+  [mrpc/lam0.05/s44 ep3/3] loss=0.3386 acc=0.850 aux=0.1446 | val_f1=0.8788 | 27s
+MRPC λ=0.05: 0.8559 ± 0.0034
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8040.93it/s]
+  [mrpc/lam0.1/s42 ep1/3] loss=0.6151 acc=0.676 aux=0.5908 | val_f1=0.8416 | 27s
+  [mrpc/lam0.1/s42 ep2/3] loss=0.4520 acc=0.786 aux=0.1890 | val_f1=0.8769 | 27s
+  [mrpc/lam0.1/s42 ep3/3] loss=0.3371 acc=0.862 aux=0.1515 | val_f1=0.8786 | 26s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8595.51it/s]
+  [mrpc/lam0.1/s43 ep1/3] loss=0.6141 acc=0.687 aux=0.6364 | val_f1=0.8255 | 26s
+  [mrpc/lam0.1/s43 ep2/3] loss=0.4397 acc=0.792 aux=0.1933 | val_f1=0.8789 | 26s
+  [mrpc/lam0.1/s43 ep3/3] loss=0.3211 acc=0.869 aux=0.1531 | val_f1=0.8808 | 26s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8716.56it/s]
+  [mrpc/lam0.1/s44 ep1/3] loss=0.6159 acc=0.684 aux=0.5839 | val_f1=0.8441 | 26s
+  [mrpc/lam0.1/s44 ep2/3] loss=0.4577 acc=0.785 aux=0.1784 | val_f1=0.8606 | 27s
+  [mrpc/lam0.1/s44 ep3/3] loss=0.3469 acc=0.849 aux=0.1429 | val_f1=0.8815 | 27s
+MRPC λ=0.1: 0.8591 ± 0.0030
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8316.67it/s]
+  [mrpc/lam0.3/s42 ep1/3] loss=0.6579 acc=0.678 aux=0.5796 | val_f1=0.8394 | 26s
+  [mrpc/lam0.3/s42 ep2/3] loss=0.4708 acc=0.786 aux=0.1855 | val_f1=0.8715 | 26s
+  [mrpc/lam0.3/s42 ep3/3] loss=0.3524 acc=0.859 aux=0.1493 | val_f1=0.8754 | 26s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8640.00it/s]
+  [mrpc/lam0.3/s43 ep1/3] loss=0.6600 acc=0.688 aux=0.6227 | val_f1=0.8291 | 26s
+  [mrpc/lam0.3/s43 ep2/3] loss=0.4618 acc=0.790 aux=0.1884 | val_f1=0.8748 | 27s
+  [mrpc/lam0.3/s43 ep3/3] loss=0.3393 acc=0.865 aux=0.1497 | val_f1=0.8808 | 27s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8902.32it/s]
+  [mrpc/lam0.3/s44 ep1/3] loss=0.6564 acc=0.684 aux=0.5712 | val_f1=0.8423 | 27s
+  [mrpc/lam0.3/s44 ep2/3] loss=0.4738 acc=0.782 aux=0.1734 | val_f1=0.8657 | 27s
+  [mrpc/lam0.3/s44 ep3/3] loss=0.3523 acc=0.849 aux=0.1391 | val_f1=0.8859 | 27s
+MRPC λ=0.3: 0.8570 ± 0.0039
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8851.59it/s]
+  [mrpc/lam0.5/s42 ep1/3] loss=0.6980 acc=0.678 aux=0.5715 | val_f1=0.8403 | 27s
+  [mrpc/lam0.5/s42 ep2/3] loss=0.4878 acc=0.787 aux=0.1837 | val_f1=0.8691 | 27s
+  [mrpc/lam0.5/s42 ep3/3] loss=0.3668 acc=0.857 aux=0.1475 | val_f1=0.8774 | 26s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8674.20it/s]
+  [mrpc/lam0.5/s43 ep1/3] loss=0.7030 acc=0.688 aux=0.6132 | val_f1=0.8322 | 26s
+  [mrpc/lam0.5/s43 ep2/3] loss=0.4775 acc=0.793 aux=0.1850 | val_f1=0.8750 | 26s
+  [mrpc/lam0.5/s43 ep3/3] loss=0.3508 acc=0.867 aux=0.1459 | val_f1=0.8858 | 26s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8713.99it/s]
+  [mrpc/lam0.5/s44 ep1/3] loss=0.6944 acc=0.684 aux=0.5632 | val_f1=0.8384 | 26s
+  [mrpc/lam0.5/s44 ep2/3] loss=0.4921 acc=0.784 aux=0.1720 | val_f1=0.8551 | 26s
+  [mrpc/lam0.5/s44 ep3/3] loss=0.3794 acc=0.842 aux=0.1358 | val_f1=0.8765 | 26s
+MRPC λ=0.5: 0.8584 ± 0.0027
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8792.53it/s]
+  [mrpc/lam1.0/s42 ep1/3] loss=0.7964 acc=0.677 aux=0.5595 | val_f1=0.8389 | 26s
+  [mrpc/lam1.0/s42 ep2/3] loss=0.5345 acc=0.786 aux=0.1805 | val_f1=0.8636 | 26s
+  [mrpc/lam1.0/s42 ep3/3] loss=0.4046 acc=0.859 aux=0.1436 | val_f1=0.8804 | 26s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8380.10it/s]
+  [mrpc/lam1.0/s43 ep1/3] loss=0.8063 acc=0.688 aux=0.5987 | val_f1=0.8256 | 26s
+  [mrpc/lam1.0/s43 ep2/3] loss=0.5188 acc=0.794 aux=0.1797 | val_f1=0.8731 | 26s
+  [mrpc/lam1.0/s43 ep3/3] loss=0.3858 acc=0.865 aux=0.1380 | val_f1=0.8843 | 26s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 9027.60it/s]
+  [mrpc/lam1.0/s44 ep1/3] loss=0.7885 acc=0.682 aux=0.5511 | val_f1=0.8421 | 26s
+  [mrpc/lam1.0/s44 ep2/3] loss=0.5335 acc=0.781 aux=0.1685 | val_f1=0.8718 | 27s
+  [mrpc/lam1.0/s44 ep3/3] loss=0.4100 acc=0.844 aux=0.1297 | val_f1=0.8822 | 27s
+MRPC λ=1.0: 0.8574 ± 0.0042
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8361.95it/s]
+  [paws/lam0.05/s42 ep1/3] loss=0.6882 acc=0.562 aux=0.3676 | val_f1=0.5325 | 157s
+  [paws/lam0.05/s42 ep2/3] loss=0.5687 acc=0.683 aux=0.0591 | val_f1=0.7628 | 161s
+  [paws/lam0.05/s42 ep3/3] loss=0.4043 acc=0.810 aux=0.0373 | val_f1=0.7974 | 161s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8299.38it/s]
+  [paws/lam0.05/s43 ep1/3] loss=0.6870 acc=0.565 aux=0.3824 | val_f1=0.3799 | 160s
+  [paws/lam0.05/s43 ep2/3] loss=0.5669 acc=0.689 aux=0.0566 | val_f1=0.7657 | 160s
+  [paws/lam0.05/s43 ep3/3] loss=0.4053 acc=0.808 aux=0.0368 | val_f1=0.7954 | 155s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 9024.93it/s]
+  [paws/lam0.05/s44 ep1/3] loss=0.6870 acc=0.562 aux=0.3658 | val_f1=0.4789 | 157s
+  [paws/lam0.05/s44 ep2/3] loss=0.5836 acc=0.675 aux=0.0556 | val_f1=0.7572 | 156s
+  [paws/lam0.05/s44 ep3/3] loss=0.4183 acc=0.799 aux=0.0339 | val_f1=0.7958 | 159s
+PAWS λ=0.05: 0.7916 ± 0.0024
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 7294.38it/s]
+  [paws/lam0.1/s42 ep1/3] loss=0.6935 acc=0.562 aux=0.3668 | val_f1=0.5354 | 156s
+  [paws/lam0.1/s42 ep2/3] loss=0.5626 acc=0.687 aux=0.0595 | val_f1=0.7752 | 157s
+  [paws/lam0.1/s42 ep3/3] loss=0.3978 acc=0.815 aux=0.0373 | val_f1=0.8054 | 157s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8733.70it/s]
+  [paws/lam0.1/s43 ep1/3] loss=0.6923 acc=0.566 aux=0.3809 | val_f1=0.3637 | 156s
+  [paws/lam0.1/s43 ep2/3] loss=0.5721 acc=0.685 aux=0.0557 | val_f1=0.7591 | 159s
+  [paws/lam0.1/s43 ep3/3] loss=0.4109 acc=0.806 aux=0.0353 | val_f1=0.7943 | 160s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8483.26it/s]
+  [paws/lam0.1/s44 ep1/3] loss=0.6920 acc=0.563 aux=0.3647 | val_f1=0.4870 | 156s
+  [paws/lam0.1/s44 ep2/3] loss=0.5732 acc=0.684 aux=0.0555 | val_f1=0.7668 | 158s
+  [paws/lam0.1/s44 ep3/3] loss=0.4067 acc=0.807 aux=0.0333 | val_f1=0.8052 | 161s
+PAWS λ=0.1: 0.7945 ± 0.0052
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8383.59it/s]
+  [paws/lam0.3/s42 ep1/3] loss=0.7141 acc=0.560 aux=0.3634 | val_f1=0.5482 | 155s
+  [paws/lam0.3/s42 ep2/3] loss=0.5724 acc=0.685 aux=0.0580 | val_f1=0.7706 | 159s
+  [paws/lam0.3/s42 ep3/3] loss=0.4057 acc=0.812 aux=0.0340 | val_f1=0.8037 | 158s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 9433.04it/s]
+  [paws/lam0.3/s43 ep1/3] loss=0.7128 acc=0.565 aux=0.3761 | val_f1=0.3840 | 155s
+  [paws/lam0.3/s43 ep2/3] loss=0.5712 acc=0.688 aux=0.0539 | val_f1=0.7669 | 151s
+  [paws/lam0.3/s43 ep3/3] loss=0.4068 acc=0.810 aux=0.0320 | val_f1=0.7980 | 148s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8818.62it/s]
+  [paws/lam0.3/s44 ep1/3] loss=0.7122 acc=0.563 aux=0.3610 | val_f1=0.4810 | 148s
+  [paws/lam0.3/s44 ep2/3] loss=0.5852 acc=0.678 aux=0.0541 | val_f1=0.7598 | 148s
+  [paws/lam0.3/s44 ep3/3] loss=0.4183 acc=0.802 aux=0.0308 | val_f1=0.7998 | 149s
+PAWS λ=0.3: 0.7929 ± 0.0025
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8823.42it/s]
+  [paws/lam0.5/s42 ep1/3] loss=0.7343 acc=0.561 aux=0.3607 | val_f1=0.5444 | 148s
+  [paws/lam0.5/s42 ep2/3] loss=0.5681 acc=0.692 aux=0.0567 | val_f1=0.7800 | 148s
+  [paws/lam0.5/s42 ep3/3] loss=0.3983 acc=0.818 aux=0.0324 | val_f1=0.8063 | 149s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8812.41it/s]
+  [paws/lam0.5/s43 ep1/3] loss=0.7329 acc=0.566 aux=0.3732 | val_f1=0.3625 | 148s
+  [paws/lam0.5/s43 ep2/3] loss=0.5775 acc=0.687 aux=0.0534 | val_f1=0.7635 | 148s
+  [paws/lam0.5/s43 ep3/3] loss=0.4123 acc=0.808 aux=0.0303 | val_f1=0.7984 | 149s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 9342.70it/s]
+  [paws/lam0.5/s44 ep1/3] loss=0.7317 acc=0.562 aux=0.3579 | val_f1=0.4965 | 150s
+  [paws/lam0.5/s44 ep2/3] loss=0.5903 acc=0.677 aux=0.0520 | val_f1=0.7606 | 151s
+  [paws/lam0.5/s44 ep3/3] loss=0.4206 acc=0.801 aux=0.0286 | val_f1=0.7998 | 152s
+PAWS λ=0.5: 0.7959 ± 0.0059
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 29258.10it/s]
+  [paws/lam1.0/s42 ep1/3] loss=0.7836 acc=0.561 aux=0.3556 | val_f1=0.5477 | 151s
+  [paws/lam1.0/s42 ep2/3] loss=0.5869 acc=0.686 aux=0.0544 | val_f1=0.7747 | 151s
+  [paws/lam1.0/s42 ep3/3] loss=0.4104 acc=0.815 aux=0.0291 | val_f1=0.8082 | 152s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 15882.32it/s]
+  [paws/lam1.0/s43 ep1/3] loss=0.7816 acc=0.564 aux=0.3662 | val_f1=0.3739 | 149s
+  [paws/lam1.0/s43 ep2/3] loss=0.5877 acc=0.685 aux=0.0501 | val_f1=0.7718 | 146s
+  [paws/lam1.0/s43 ep3/3] loss=0.4134 acc=0.811 aux=0.0262 | val_f1=0.8052 | 146s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 17964.12it/s]
+  [paws/lam1.0/s44 ep1/3] loss=0.7792 acc=0.562 aux=0.3519 | val_f1=0.4891 | 145s
+  [paws/lam1.0/s44 ep2/3] loss=0.6005 acc=0.678 aux=0.0498 | val_f1=0.7580 | 145s
+  [paws/lam1.0/s44 ep3/3] loss=0.4247 acc=0.804 aux=0.0264 | val_f1=0.8006 | 148s
+PAWS λ=1.0: 0.7958 ± 0.0045
+✅ R-7 done → results/lambda_ablation_full.json (new Table 7 with mean±std)
+STAGE 3 COMPLETE

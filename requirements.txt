@@ -1,0 +1,18 @@
+# JEPA-Reg — direct dependencies.
+# Exact environment used for all reported runs: see requirements-lock.txt
+# Python 3.14.6 on Windows 11.
+#
+# PyTorch must be installed from the CUDA 13.0 index for Blackwell (sm_120) GPUs
+# such as the RTX 5060 Ti used in the paper:
+#   pip install torch==2.13.0 --index-url https://download.pytorch.org/whl/cu130
+torch==2.13.0
+transformers==5.14.1
+datasets==5.0.1
+tokenizers==0.22.2
+huggingface-hub==1.26.0
+numpy==2.5.1
+scipy==1.18.0
+scikit-learn==1.9.0
+matplotlib==3.11.1
+pandas==3.0.5
+tqdm==4.70.0

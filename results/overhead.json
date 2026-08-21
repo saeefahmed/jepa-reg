@@ -1,0 +1,16 @@
+{
+  "baseline": {
+    "ms_per_step": 296.7746639950201,
+    "peak_gb": 2.90822144,
+    "params_total_M": 109.483778,
+    "params_trainable_M": 109.483778,
+    "infer_ms_per_batch": 72.44124799501151
+  },
+  "jepa": {
+    "ms_per_step": 1926.7753840144724,
+    "peak_gb": 4.626425856,
+    "params_total_M": 219.49133,
+    "params_trainable_M": 109.812226,
+    "infer_ms_per_batch": 210.66763999406248
+  }
+}

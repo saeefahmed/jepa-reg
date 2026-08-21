@@ -1,0 +1,508 @@
+Device        : cuda
+Paper framing : Option B — Adversarial Lexical Overlap Robustness
+Seeds         : [42, 43, 44]  (n=3, df=2)
+Datasets      : MRPC, QQP, PAWS, HANS (zero-shot)
+Free VRAM     : 15.9 GB
+✅ Collator ready  (num_workers=0 — no pickle error)
+✅ JepaBertPair — online BERT receives full JEPA gradient (stop_grad on TARGET only)
+✅ HybridJepaSimCSE + SimCSEBertPair ready (detach removed, s2 bug fixed)
+✅ Training utilities ready
+   Lambda warmup: True  EMA: 0.999  Warmup: 0.2
+✅ Stats: bootstrap (2,000 samples) + Cohen's d + paired t-test
+✅ Lambda selector  (4 candidates, TUNE_EPOCHS=1)
+Loading all datasets (one-time)...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+HANS loaded from GitHub: 30,000 eval examples
+  heuristics: ['constituent', 'lexical_overlap', 'subsequence']
+MRPC  3,668 / 408 / 1,725
+QQP   18,000 / 5,000 / 2,000
+PAWS  20,000 / 5,000 / 8,000
+HANS  30,000 examples (zero-shot eval only)
+STS-B 1,500 (diagnostic only)
+✅ Datasets loaded
+run_backbone() ready -- MRPC + QQP + PAWS  [crash-safe, per-dataset checkpointing]
+
+============================================================
+  BACKBONE: bert-base-uncased
+  batch=32  eff_batch=32
+  Free VRAM: 15.9 GB
+============================================================
+
+-- MRPC  (epochs=3)
+  λ sweep (3302 train, 366 tune, TUNE_EPOCHS=1, model=jepa):
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 22771.26it/s]
+    λ=0.05  tune_f1=0.8182
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 14394.33it/s]
+    λ=0.1   tune_f1=0.8102
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 25030.38it/s]
+    λ=0.3   tune_f1=0.8097
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 15190.89it/s]
+    λ=0.5   tune_f1=0.8097
+  → Best λ=0.05  (tune_f1=0.8182)
+  Seed 42
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 21171.00it/s]
+  [bert-base-uncased/MRPC/baseline ep1/3] loss=0.6009 acc=0.685 aux=0.0000 | val_f1=0.8355 | 12s
+  [bert-base-uncased/MRPC/baseline ep2/3] loss=0.4822 acc=0.791 aux=0.0000 | val_f1=0.8785 | 12s
+  [bert-base-uncased/MRPC/baseline ep3/3] loss=0.3734 acc=0.864 aux=0.0000 | val_f1=0.8801 | 12s
+    baseline   f1=0.8557
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 17279.28it/s]
+  [bert-base-uncased/MRPC/simcse ep1/3] loss=0.6548 acc=0.668 aux=0.4437 | val_f1=0.8341 | 21s
+  [bert-base-uncased/MRPC/simcse ep2/3] loss=0.4847 acc=0.786 aux=0.1101 | val_f1=0.8626 | 21s
+  [bert-base-uncased/MRPC/simcse ep3/3] loss=0.3833 acc=0.861 aux=0.0956 | val_f1=0.8741 | 21s
+    simcse     f1=0.8564
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 23420.58it/s]
+  [bert-base-uncased/MRPC/jepa ep1/3] loss=0.6037 acc=0.677 aux=0.5951 | val_f1=0.8408 | 26s
+  [bert-base-uncased/MRPC/jepa ep2/3] loss=0.4445 acc=0.791 aux=0.1905 | val_f1=0.8702 | 26s
+  [bert-base-uncased/MRPC/jepa ep3/3] loss=0.3321 acc=0.859 aux=0.1520 | val_f1=0.8812 | 26s
+    jepa       f1=0.8575
+  Seed 43
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 28659.06it/s]
+  [bert-base-uncased/MRPC/baseline ep1/3] loss=0.6254 acc=0.686 aux=0.0000 | val_f1=0.8218 | 12s
+  [bert-base-uncased/MRPC/baseline ep2/3] loss=0.5320 acc=0.752 aux=0.0000 | val_f1=0.8524 | 12s
+  [bert-base-uncased/MRPC/baseline ep3/3] loss=0.4340 acc=0.818 aux=0.0000 | val_f1=0.8763 | 12s
+    baseline   f1=0.8409
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 21732.15it/s]
+  [bert-base-uncased/MRPC/simcse ep1/3] loss=0.6364 acc=0.689 aux=0.4263 | val_f1=0.8383 | 21s
+  [bert-base-uncased/MRPC/simcse ep2/3] loss=0.4680 acc=0.804 aux=0.0988 | val_f1=0.8746 | 21s
+  [bert-base-uncased/MRPC/simcse ep3/3] loss=0.3712 acc=0.868 aux=0.0948 | val_f1=0.8855 | 21s
+    simcse     f1=0.8555
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 23078.45it/s]
+  [bert-base-uncased/MRPC/jepa ep1/3] loss=0.6022 acc=0.688 aux=0.6419 | val_f1=0.8319 | 26s
+  [bert-base-uncased/MRPC/jepa ep2/3] loss=0.4338 acc=0.794 aux=0.1956 | val_f1=0.8819 | 26s
+  [bert-base-uncased/MRPC/jepa ep3/3] loss=0.3177 acc=0.868 aux=0.1543 | val_f1=0.8774 | 26s
+    jepa       f1=0.8529
+  Seed 44
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 23217.43it/s]
+  [bert-base-uncased/MRPC/baseline ep1/3] loss=0.6184 acc=0.664 aux=0.0000 | val_f1=0.8274 | 12s
+  [bert-base-uncased/MRPC/baseline ep2/3] loss=0.4831 acc=0.780 aux=0.0000 | val_f1=0.8847 | 12s
+  [bert-base-uncased/MRPC/baseline ep3/3] loss=0.3775 acc=0.863 aux=0.0000 | val_f1=0.8927 | 12s
+    baseline   f1=0.8693
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 21923.00it/s]
+  [bert-base-uncased/MRPC/simcse ep1/3] loss=0.6405 acc=0.693 aux=0.4269 | val_f1=0.8364 | 21s
+  [bert-base-uncased/MRPC/simcse ep2/3] loss=0.4767 acc=0.795 aux=0.0939 | val_f1=0.8706 | 21s
+  [bert-base-uncased/MRPC/simcse ep3/3] loss=0.3787 acc=0.864 aux=0.0926 | val_f1=0.8693 | 21s
+    simcse     f1=0.8388
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 20638.37it/s]
+  [bert-base-uncased/MRPC/jepa ep1/3] loss=0.6059 acc=0.682 aux=0.5885 | val_f1=0.8391 | 26s
+  [bert-base-uncased/MRPC/jepa ep2/3] loss=0.4523 acc=0.783 aux=0.1786 | val_f1=0.8616 | 26s
+  [bert-base-uncased/MRPC/jepa ep3/3] loss=0.3333 acc=0.851 aux=0.1444 | val_f1=0.8786 | 26s
+    jepa       f1=0.8526
+  [checkpoint] partial results saved → results/checkpoint_bert-base-uncased_partial.json
+
+-- Low-Resource MRPC
+  1% (36 samples)
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 18770.47it/s]
+  [bert-base-uncased/LR1/baseline/s42 ep1/3] loss=0.6578 acc=0.583 aux=0.0000 | val_f1=0.8099 | 1s
+  [bert-base-uncased/LR1/baseline/s42 ep2/3] loss=0.6220 acc=0.667 aux=0.0000 | val_f1=0.8122 | 0s
+  [bert-base-uncased/LR1/baseline/s42 ep3/3] loss=0.5502 acc=0.667 aux=0.0000 | val_f1=0.8122 | 0s
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 19996.32it/s]
+  [bert-base-uncased/LR1/baseline/s43 ep1/3] loss=0.7284 acc=0.639 aux=0.0000 | val_f1=0.8134 | 0s
+  [bert-base-uncased/LR1/baseline/s43 ep2/3] loss=0.6164 acc=0.611 aux=0.0000 | val_f1=0.8134 | 0s
+  [bert-base-uncased/LR1/baseline/s43 ep3/3] loss=0.6186 acc=0.667 aux=0.0000 | val_f1=0.8134 | 0s
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 15723.21it/s]
+  [bert-base-uncased/LR1/baseline/s44 ep1/3] loss=0.6965 acc=0.556 aux=0.0000 | val_f1=0.7850 | 0s
+  [bert-base-uncased/LR1/baseline/s44 ep2/3] loss=0.6620 acc=0.556 aux=0.0000 | val_f1=0.8122 | 1s
+  [bert-base-uncased/LR1/baseline/s44 ep3/3] loss=0.5773 acc=0.639 aux=0.0000 | val_f1=0.8122 | 0s
+    baseline   0.7984+/-0.0005
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 14927.70it/s]
+  [bert-base-uncased/LR1/simcse/s42 ep1/3] loss=0.7761 acc=0.500 aux=1.0523 | val_f1=0.5043 | 1s
+  [bert-base-uncased/LR1/simcse/s42 ep2/3] loss=0.7867 acc=0.528 aux=0.9944 | val_f1=0.7556 | 1s
+  [bert-base-uncased/LR1/simcse/s42 ep3/3] loss=0.6426 acc=0.639 aux=0.4052 | val_f1=0.7779 | 1s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 21259.66it/s]
+  [bert-base-uncased/LR1/simcse/s43 ep1/3] loss=0.7623 acc=0.583 aux=1.1966 | val_f1=0.7793 | 1s
+  [bert-base-uncased/LR1/simcse/s43 ep2/3] loss=0.6912 acc=0.667 aux=0.5903 | val_f1=0.8119 | 1s
+  [bert-base-uncased/LR1/simcse/s43 ep3/3] loss=0.6810 acc=0.722 aux=0.2581 | val_f1=0.8100 | 1s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 19119.72it/s]
+  [bert-base-uncased/LR1/simcse/s44 ep1/3] loss=0.6747 acc=0.583 aux=0.9536 | val_f1=0.8000 | 1s
+  [bert-base-uncased/LR1/simcse/s44 ep2/3] loss=0.7538 acc=0.583 aux=0.8636 | val_f1=0.7859 | 1s
+  [bert-base-uncased/LR1/simcse/s44 ep3/3] loss=0.6489 acc=0.694 aux=0.5293 | val_f1=0.7915 | 1s
+    simcse     0.7809+/-0.0125
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 27150.72it/s]
+  [bert-base-uncased/LR1/jepa/s42 ep1/3] loss=0.7345 acc=0.528 aux=0.9714 | val_f1=0.8024 | 1s
+  [bert-base-uncased/LR1/jepa/s42 ep2/3] loss=0.7396 acc=0.639 aux=0.9386 | val_f1=0.8122 | 1s
+  [bert-base-uncased/LR1/jepa/s42 ep3/3] loss=0.6893 acc=0.639 aux=0.9637 | val_f1=0.8122 | 1s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 18499.86it/s]
+  [bert-base-uncased/LR1/jepa/s43 ep1/3] loss=0.6676 acc=0.639 aux=1.0447 | val_f1=0.6478 | 1s
+  [bert-base-uncased/LR1/jepa/s43 ep2/3] loss=0.6672 acc=0.528 aux=1.0379 | val_f1=0.8164 | 1s
+  [bert-base-uncased/LR1/jepa/s43 ep3/3] loss=0.6584 acc=0.639 aux=1.0374 | val_f1=0.8134 | 1s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 18933.96it/s]
+  [bert-base-uncased/LR1/jepa/s44 ep1/3] loss=0.7327 acc=0.306 aux=0.9931 | val_f1=0.7561 | 1s
+  [bert-base-uncased/LR1/jepa/s44 ep2/3] loss=0.7806 acc=0.472 aux=0.9760 | val_f1=0.8030 | 1s
+  [bert-base-uncased/LR1/jepa/s44 ep3/3] loss=0.5881 acc=0.667 aux=0.9588 | val_f1=0.8088 | 1s
+    jepa       0.7980+/-0.0002
+  2% (73 samples)
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 16917.32it/s]
+  [bert-base-uncased/LR2/baseline/s42 ep1/3] loss=0.6665 acc=0.589 aux=0.0000 | val_f1=0.8122 | 1s
+  [bert-base-uncased/LR2/baseline/s42 ep2/3] loss=0.6330 acc=0.685 aux=0.0000 | val_f1=0.8122 | 1s
+  [bert-base-uncased/LR2/baseline/s42 ep3/3] loss=0.5879 acc=0.699 aux=0.0000 | val_f1=0.8122 | 1s
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 23422.66it/s]
+  [bert-base-uncased/LR2/baseline/s43 ep1/3] loss=0.6747 acc=0.712 aux=0.0000 | val_f1=0.8122 | 1s
+  [bert-base-uncased/LR2/baseline/s43 ep2/3] loss=0.6001 acc=0.699 aux=0.0000 | val_f1=0.8122 | 1s
+  [bert-base-uncased/LR2/baseline/s43 ep3/3] loss=0.5829 acc=0.699 aux=0.0000 | val_f1=0.8122 | 1s
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8657.11it/s]
+  [bert-base-uncased/LR2/baseline/s44 ep1/3] loss=0.7042 acc=0.425 aux=0.0000 | val_f1=0.8105 | 1s
+  [bert-base-uncased/LR2/baseline/s44 ep2/3] loss=0.6181 acc=0.699 aux=0.0000 | val_f1=0.8122 | 1s
+  [bert-base-uncased/LR2/baseline/s44 ep3/3] loss=0.5652 acc=0.699 aux=0.0000 | val_f1=0.8122 | 1s
+    baseline   0.7987+/-0.0000
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8876.98it/s]
+  [bert-base-uncased/LR2/simcse/s42 ep1/3] loss=0.8033 acc=0.493 aux=1.3425 | val_f1=0.8088 | 1s
+  [bert-base-uncased/LR2/simcse/s42 ep2/3] loss=0.6208 acc=0.699 aux=0.5516 | val_f1=0.8122 | 1s
+  [bert-base-uncased/LR2/simcse/s42 ep3/3] loss=0.5492 acc=0.699 aux=0.3109 | val_f1=0.8122 | 1s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8690.34it/s]
+  [bert-base-uncased/LR2/simcse/s43 ep1/3] loss=0.7853 acc=0.562 aux=1.2794 | val_f1=0.8134 | 1s
+  [bert-base-uncased/LR2/simcse/s43 ep2/3] loss=0.6203 acc=0.699 aux=0.5948 | val_f1=0.8122 | 1s
+  [bert-base-uncased/LR2/simcse/s43 ep3/3] loss=0.5919 acc=0.712 aux=0.3357 | val_f1=0.8134 | 1s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8410.12it/s]
+  [bert-base-uncased/LR2/simcse/s44 ep1/3] loss=0.7756 acc=0.671 aux=1.5438 | val_f1=0.8042 | 1s
+  [bert-base-uncased/LR2/simcse/s44 ep2/3] loss=0.6144 acc=0.699 aux=0.5328 | val_f1=0.8088 | 1s
+  [bert-base-uncased/LR2/simcse/s44 ep3/3] loss=0.5974 acc=0.699 aux=0.3018 | val_f1=0.8088 | 1s
+    simcse     0.7985+/-0.0005
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8904.72it/s]
+  [bert-base-uncased/LR2/jepa/s42 ep1/3] loss=0.6918 acc=0.616 aux=0.9666 | val_f1=0.8122 | 2s
+  [bert-base-uncased/LR2/jepa/s42 ep2/3] loss=0.6011 acc=0.699 aux=0.9329 | val_f1=0.8122 | 1s
+  [bert-base-uncased/LR2/jepa/s42 ep3/3] loss=0.5469 acc=0.699 aux=0.9082 | val_f1=0.8122 | 2s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8911.64it/s]
+  [bert-base-uncased/LR2/jepa/s43 ep1/3] loss=0.7028 acc=0.562 aux=1.0461 | val_f1=0.8122 | 2s
+  [bert-base-uncased/LR2/jepa/s43 ep2/3] loss=0.5977 acc=0.699 aux=1.0209 | val_f1=0.8122 | 1s
+  [bert-base-uncased/LR2/jepa/s43 ep3/3] loss=0.6179 acc=0.699 aux=1.0026 | val_f1=0.8122 | 1s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8505.44it/s]
+  [bert-base-uncased/LR2/jepa/s44 ep1/3] loss=0.7272 acc=0.452 aux=0.9795 | val_f1=0.8122 | 2s
+  [bert-base-uncased/LR2/jepa/s44 ep2/3] loss=0.6196 acc=0.699 aux=0.9530 | val_f1=0.8122 | 1s
+  [bert-base-uncased/LR2/jepa/s44 ep3/3] loss=0.5694 acc=0.699 aux=0.9386 | val_f1=0.8122 | 1s
+    jepa       0.7987+/-0.0001
+  5% (183 samples)
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8544.29it/s]
+  [bert-base-uncased/LR5/baseline/s42 ep1/3] loss=0.6695 acc=0.607 aux=0.0000 | val_f1=0.8122 | 1s
+  [bert-base-uncased/LR5/baseline/s42 ep2/3] loss=0.6012 acc=0.678 aux=0.0000 | val_f1=0.8143 | 1s
+  [bert-base-uncased/LR5/baseline/s42 ep3/3] loss=0.5617 acc=0.743 aux=0.0000 | val_f1=0.8006 | 1s
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8645.81it/s]
+  [bert-base-uncased/LR5/baseline/s43 ep1/3] loss=0.6498 acc=0.645 aux=0.0000 | val_f1=0.8122 | 1s
+  [bert-base-uncased/LR5/baseline/s43 ep2/3] loss=0.6507 acc=0.656 aux=0.0000 | val_f1=0.8122 | 1s
+  [bert-base-uncased/LR5/baseline/s43 ep3/3] loss=0.6443 acc=0.650 aux=0.0000 | val_f1=0.8122 | 1s
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8525.18it/s]
+  [bert-base-uncased/LR5/baseline/s44 ep1/3] loss=0.6685 acc=0.563 aux=0.0000 | val_f1=0.8122 | 1s
+  [bert-base-uncased/LR5/baseline/s44 ep2/3] loss=0.6344 acc=0.650 aux=0.0000 | val_f1=0.8122 | 1s
+  [bert-base-uncased/LR5/baseline/s44 ep3/3] loss=0.5853 acc=0.656 aux=0.0000 | val_f1=0.8134 | 1s
+    baseline   0.8005+/-0.0021
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8251.80it/s]
+  [bert-base-uncased/LR5/simcse/s42 ep1/3] loss=0.8253 acc=0.536 aux=1.4327 | val_f1=0.8094 | 2s
+  [bert-base-uncased/LR5/simcse/s42 ep2/3] loss=0.6429 acc=0.672 aux=0.4340 | val_f1=0.7836 | 2s
+  [bert-base-uncased/LR5/simcse/s42 ep3/3] loss=0.5906 acc=0.727 aux=0.3199 | val_f1=0.7862 | 2s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8452.54it/s]
+  [bert-base-uncased/LR5/simcse/s43 ep1/3] loss=0.7838 acc=0.585 aux=1.1935 | val_f1=0.8141 | 2s
+  [bert-base-uncased/LR5/simcse/s43 ep2/3] loss=0.6358 acc=0.699 aux=0.4161 | val_f1=0.8139 | 2s
+  [bert-base-uncased/LR5/simcse/s43 ep3/3] loss=0.5691 acc=0.738 aux=0.2933 | val_f1=0.7975 | 2s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8588.99it/s]
+  [bert-base-uncased/LR5/simcse/s44 ep1/3] loss=0.7962 acc=0.650 aux=1.3764 | val_f1=0.8059 | 2s
+  [bert-base-uncased/LR5/simcse/s44 ep2/3] loss=0.6580 acc=0.683 aux=0.4923 | val_f1=0.8031 | 2s
+  [bert-base-uncased/LR5/simcse/s44 ep3/3] loss=0.5851 acc=0.749 aux=0.2934 | val_f1=0.7867 | 2s
+    simcse     0.7951+/-0.0034
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8916.73it/s]
+  [bert-base-uncased/LR5/jepa/s42 ep1/3] loss=0.7008 acc=0.617 aux=0.9509 | val_f1=0.8122 | 2s
+  [bert-base-uncased/LR5/jepa/s42 ep2/3] loss=0.6517 acc=0.650 aux=0.8985 | val_f1=0.8158 | 2s
+  [bert-base-uncased/LR5/jepa/s42 ep3/3] loss=0.5967 acc=0.694 aux=0.8671 | val_f1=0.8201 | 2s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8355.61it/s]
+  [bert-base-uncased/LR5/jepa/s43 ep1/3] loss=0.7019 acc=0.590 aux=1.0343 | val_f1=0.8134 | 2s
+  [bert-base-uncased/LR5/jepa/s43 ep2/3] loss=0.6266 acc=0.656 aux=0.9817 | val_f1=0.8176 | 2s
+  [bert-base-uncased/LR5/jepa/s43 ep3/3] loss=0.5900 acc=0.689 aux=0.9501 | val_f1=0.8178 | 2s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8668.37it/s]
+  [bert-base-uncased/LR5/jepa/s44 ep1/3] loss=0.6999 acc=0.579 aux=0.9678 | val_f1=0.8122 | 2s
+  [bert-base-uncased/LR5/jepa/s44 ep2/3] loss=0.6392 acc=0.650 aux=0.9094 | val_f1=0.8182 | 2s
+  [bert-base-uncased/LR5/jepa/s44 ep3/3] loss=0.5928 acc=0.694 aux=0.8711 | val_f1=0.8127 | 2s
+    jepa       0.8056+/-0.0004
+  10% (366 samples)
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 7966.73it/s]
+  [bert-base-uncased/LR10/baseline/s42 ep1/3] loss=0.6488 acc=0.645 aux=0.0000 | val_f1=0.8122 | 2s
+  [bert-base-uncased/LR10/baseline/s42 ep2/3] loss=0.5789 acc=0.691 aux=0.0000 | val_f1=0.8006 | 2s
+  [bert-base-uncased/LR10/baseline/s42 ep3/3] loss=0.5532 acc=0.740 aux=0.0000 | val_f1=0.8037 | 2s
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8113.80it/s]
+  [bert-base-uncased/LR10/baseline/s43 ep1/3] loss=0.6564 acc=0.648 aux=0.0000 | val_f1=0.8122 | 2s
+  [bert-base-uncased/LR10/baseline/s43 ep2/3] loss=0.6208 acc=0.664 aux=0.0000 | val_f1=0.8171 | 2s
+  [bert-base-uncased/LR10/baseline/s43 ep3/3] loss=0.5987 acc=0.689 aux=0.0000 | val_f1=0.8097 | 1s
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8446.67it/s]
+  [bert-base-uncased/LR10/baseline/s44 ep1/3] loss=0.6710 acc=0.582 aux=0.0000 | val_f1=0.8122 | 2s
+  [bert-base-uncased/LR10/baseline/s44 ep2/3] loss=0.6189 acc=0.686 aux=0.0000 | val_f1=0.8091 | 1s
+  [bert-base-uncased/LR10/baseline/s44 ep3/3] loss=0.5912 acc=0.697 aux=0.0000 | val_f1=0.8073 | 1s
+    baseline   0.8009+/-0.0030
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8551.83it/s]
+  [bert-base-uncased/LR10/simcse/s42 ep1/3] loss=0.7716 acc=0.593 aux=1.0434 | val_f1=0.8134 | 3s
+  [bert-base-uncased/LR10/simcse/s42 ep2/3] loss=0.6042 acc=0.710 aux=0.2681 | val_f1=0.7975 | 3s
+  [bert-base-uncased/LR10/simcse/s42 ep3/3] loss=0.5580 acc=0.740 aux=0.2189 | val_f1=0.7812 | 3s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 7870.81it/s]
+  [bert-base-uncased/LR10/simcse/s43 ep1/3] loss=0.7581 acc=0.628 aux=1.0439 | val_f1=0.8169 | 3s
+  [bert-base-uncased/LR10/simcse/s43 ep2/3] loss=0.6177 acc=0.716 aux=0.2910 | val_f1=0.8230 | 3s
+  [bert-base-uncased/LR10/simcse/s43 ep3/3] loss=0.5574 acc=0.719 aux=0.2108 | val_f1=0.8293 | 3s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8275.36it/s]
+  [bert-base-uncased/LR10/simcse/s44 ep1/3] loss=0.7504 acc=0.656 aux=1.0896 | val_f1=0.8062 | 3s
+  [bert-base-uncased/LR10/simcse/s44 ep2/3] loss=0.6020 acc=0.705 aux=0.2596 | val_f1=0.7949 | 3s
+  [bert-base-uncased/LR10/simcse/s44 ep3/3] loss=0.5499 acc=0.732 aux=0.2107 | val_f1=0.8013 | 3s
+    simcse     0.8008+/-0.0014
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8400.29it/s]
+  [bert-base-uncased/LR10/jepa/s42 ep1/3] loss=0.6945 acc=0.607 aux=0.9304 | val_f1=0.8122 | 4s
+  [bert-base-uncased/LR10/jepa/s42 ep2/3] loss=0.6111 acc=0.680 aux=0.8298 | val_f1=0.8176 | 3s
+  [bert-base-uncased/LR10/jepa/s42 ep3/3] loss=0.5701 acc=0.713 aux=0.7698 | val_f1=0.8157 | 4s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 9159.19it/s]
+  [bert-base-uncased/LR10/jepa/s43 ep1/3] loss=0.6741 acc=0.639 aux=1.0133 | val_f1=0.8146 | 4s
+  [bert-base-uncased/LR10/jepa/s43 ep2/3] loss=0.5965 acc=0.689 aux=0.9065 | val_f1=0.8074 | 3s
+  [bert-base-uncased/LR10/jepa/s43 ep3/3] loss=0.5642 acc=0.719 aux=0.8399 | val_f1=0.8111 | 3s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8986.17it/s]
+  [bert-base-uncased/LR10/jepa/s44 ep1/3] loss=0.6799 acc=0.563 aux=0.9504 | val_f1=0.8122 | 4s
+  [bert-base-uncased/LR10/jepa/s44 ep2/3] loss=0.6122 acc=0.683 aux=0.8306 | val_f1=0.8218 | 3s
+  [bert-base-uncased/LR10/jepa/s44 ep3/3] loss=0.5740 acc=0.710 aux=0.7556 | val_f1=0.8075 | 3s
+    jepa       0.8038+/-0.0036
+  25% (917 samples)
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8144.92it/s]
+  [bert-base-uncased/LR25/baseline/s42 ep1/3] loss=0.6413 acc=0.630 aux=0.0000 | val_f1=0.8155 | 3s
+  [bert-base-uncased/LR25/baseline/s42 ep2/3] loss=0.5777 acc=0.707 aux=0.0000 | val_f1=0.8128 | 3s
+  [bert-base-uncased/LR25/baseline/s42 ep3/3] loss=0.5272 acc=0.761 aux=0.0000 | val_f1=0.7986 | 3s
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8215.46it/s]
+  [bert-base-uncased/LR25/baseline/s43 ep1/3] loss=0.6572 acc=0.652 aux=0.0000 | val_f1=0.8129 | 3s
+  [bert-base-uncased/LR25/baseline/s43 ep2/3] loss=0.6067 acc=0.683 aux=0.0000 | val_f1=0.8237 | 3s
+  [bert-base-uncased/LR25/baseline/s43 ep3/3] loss=0.5612 acc=0.706 aux=0.0000 | val_f1=0.8257 | 3s
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8319.63it/s]
+  [bert-base-uncased/LR25/baseline/s44 ep1/3] loss=0.6660 acc=0.605 aux=0.0000 | val_f1=0.8209 | 3s
+  [bert-base-uncased/LR25/baseline/s44 ep2/3] loss=0.5857 acc=0.690 aux=0.0000 | val_f1=0.8057 | 3s
+  [bert-base-uncased/LR25/baseline/s44 ep3/3] loss=0.5272 acc=0.745 aux=0.0000 | val_f1=0.8058 | 3s
+    baseline   0.8079+/-0.0006
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8740.35it/s]
+  [bert-base-uncased/LR25/simcse/s42 ep1/3] loss=0.7336 acc=0.615 aux=0.7580 | val_f1=0.8031 | 6s
+  [bert-base-uncased/LR25/simcse/s42 ep2/3] loss=0.5887 acc=0.710 aux=0.1702 | val_f1=0.8045 | 6s
+  [bert-base-uncased/LR25/simcse/s42 ep3/3] loss=0.5150 acc=0.772 aux=0.1345 | val_f1=0.8063 | 6s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8410.47it/s]
+  [bert-base-uncased/LR25/simcse/s43 ep1/3] loss=0.7246 acc=0.653 aux=0.7912 | val_f1=0.8208 | 6s
+  [bert-base-uncased/LR25/simcse/s43 ep2/3] loss=0.5735 acc=0.727 aux=0.1607 | val_f1=0.8146 | 6s
+  [bert-base-uncased/LR25/simcse/s43 ep3/3] loss=0.5068 acc=0.773 aux=0.1357 | val_f1=0.8195 | 6s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8835.12it/s]
+  [bert-base-uncased/LR25/simcse/s44 ep1/3] loss=0.7221 acc=0.648 aux=0.7305 | val_f1=0.8086 | 6s
+  [bert-base-uncased/LR25/simcse/s44 ep2/3] loss=0.5902 acc=0.707 aux=0.1754 | val_f1=0.8000 | 6s
+  [bert-base-uncased/LR25/simcse/s44 ep3/3] loss=0.5187 acc=0.763 aux=0.1364 | val_f1=0.8090 | 6s
+    simcse     0.8028+/-0.0014
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8457.73it/s]
+  [bert-base-uncased/LR25/jepa/s42 ep1/3] loss=0.6873 acc=0.626 aux=0.8780 | val_f1=0.8153 | 7s
+  [bert-base-uncased/LR25/jepa/s42 ep2/3] loss=0.6164 acc=0.686 aux=0.6393 | val_f1=0.8208 | 7s
+  [bert-base-uncased/LR25/jepa/s42 ep3/3] loss=0.5476 acc=0.714 aux=0.4964 | val_f1=0.8162 | 7s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8763.71it/s]
+  [bert-base-uncased/LR25/jepa/s43 ep1/3] loss=0.6602 acc=0.649 aux=0.9446 | val_f1=0.7656 | 7s
+  [bert-base-uncased/LR25/jepa/s43 ep2/3] loss=0.5755 acc=0.719 aux=0.6505 | val_f1=0.8153 | 7s
+  [bert-base-uncased/LR25/jepa/s43 ep3/3] loss=0.5090 acc=0.754 aux=0.5118 | val_f1=0.8167 | 7s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8802.93it/s]
+  [bert-base-uncased/LR25/jepa/s44 ep1/3] loss=0.6818 acc=0.628 aux=0.8886 | val_f1=0.8178 | 7s
+  [bert-base-uncased/LR25/jepa/s44 ep2/3] loss=0.5842 acc=0.702 aux=0.5924 | val_f1=0.8173 | 7s
+  [bert-base-uncased/LR25/jepa/s44 ep3/3] loss=0.5212 acc=0.742 aux=0.4545 | val_f1=0.7953 | 7s
+    jepa       0.8070+/-0.0017
+  50% (1834 samples)
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8691.18it/s]
+  [bert-base-uncased/LR50/baseline/s42 ep1/3] loss=0.6276 acc=0.667 aux=0.0000 | val_f1=0.8186 | 6s
+  [bert-base-uncased/LR50/baseline/s42 ep2/3] loss=0.5435 acc=0.745 aux=0.0000 | val_f1=0.8315 | 6s
+  [bert-base-uncased/LR50/baseline/s42 ep3/3] loss=0.4692 acc=0.805 aux=0.0000 | val_f1=0.8223 | 6s
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8988.83it/s]
+  [bert-base-uncased/LR50/baseline/s43 ep1/3] loss=0.6373 acc=0.670 aux=0.0000 | val_f1=0.8207 | 6s
+  [bert-base-uncased/LR50/baseline/s43 ep2/3] loss=0.5724 acc=0.709 aux=0.0000 | val_f1=0.8182 | 6s
+  [bert-base-uncased/LR50/baseline/s43 ep3/3] loss=0.5055 acc=0.777 aux=0.0000 | val_f1=0.8277 | 6s
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8275.00it/s]
+  [bert-base-uncased/LR50/baseline/s44 ep1/3] loss=0.6316 acc=0.643 aux=0.0000 | val_f1=0.8178 | 6s
+  [bert-base-uncased/LR50/baseline/s44 ep2/3] loss=0.5418 acc=0.738 aux=0.0000 | val_f1=0.8272 | 6s
+  [bert-base-uncased/LR50/baseline/s44 ep3/3] loss=0.4634 acc=0.789 aux=0.0000 | val_f1=0.8358 | 6s
+    baseline   0.8229+/-0.0022
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 9143.38it/s]
+  [bert-base-uncased/LR50/simcse/s42 ep1/3] loss=0.7002 acc=0.638 aux=0.5826 | val_f1=0.8194 | 11s
+  [bert-base-uncased/LR50/simcse/s42 ep2/3] loss=0.5405 acc=0.742 aux=0.1153 | val_f1=0.8226 | 11s
+  [bert-base-uncased/LR50/simcse/s42 ep3/3] loss=0.4469 acc=0.819 aux=0.1000 | val_f1=0.8285 | 11s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8253.53it/s]
+  [bert-base-uncased/LR50/simcse/s43 ep1/3] loss=0.6860 acc=0.665 aux=0.5693 | val_f1=0.8250 | 11s
+  [bert-base-uncased/LR50/simcse/s43 ep2/3] loss=0.5324 acc=0.752 aux=0.1158 | val_f1=0.8243 | 11s
+  [bert-base-uncased/LR50/simcse/s43 ep3/3] loss=0.4461 acc=0.828 aux=0.1069 | val_f1=0.8436 | 11s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8529.50it/s]
+  [bert-base-uncased/LR50/simcse/s44 ep1/3] loss=0.6887 acc=0.673 aux=0.5842 | val_f1=0.8112 | 11s
+  [bert-base-uncased/LR50/simcse/s44 ep2/3] loss=0.5291 acc=0.756 aux=0.1138 | val_f1=0.8262 | 11s
+  [bert-base-uncased/LR50/simcse/s44 ep3/3] loss=0.4490 acc=0.826 aux=0.0968 | val_f1=0.8339 | 11s
+    simcse     0.8225+/-0.0030
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8494.25it/s]
+  [bert-base-uncased/LR50/jepa/s42 ep1/3] loss=0.6349 acc=0.665 aux=0.7578 | val_f1=0.8203 | 14s
+  [bert-base-uncased/LR50/jepa/s42 ep2/3] loss=0.5100 acc=0.754 aux=0.3374 | val_f1=0.8306 | 14s
+  [bert-base-uncased/LR50/jepa/s42 ep3/3] loss=0.4246 acc=0.810 aux=0.2645 | val_f1=0.8374 | 14s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8331.77it/s]
+  [bert-base-uncased/LR50/jepa/s43 ep1/3] loss=0.6279 acc=0.678 aux=0.8174 | val_f1=0.8117 | 14s
+  [bert-base-uncased/LR50/jepa/s43 ep2/3] loss=0.5216 acc=0.742 aux=0.3688 | val_f1=0.7925 | 14s
+  [bert-base-uncased/LR50/jepa/s43 ep3/3] loss=0.4421 acc=0.794 aux=0.2839 | val_f1=0.8464 | 14s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8429.86it/s]
+  [bert-base-uncased/LR50/jepa/s44 ep1/3] loss=0.6430 acc=0.673 aux=0.7622 | val_f1=0.8123 | 14s
+  [bert-base-uncased/LR50/jepa/s44 ep2/3] loss=0.5225 acc=0.748 aux=0.3129 | val_f1=0.8393 | 14s
+  [bert-base-uncased/LR50/jepa/s44 ep3/3] loss=0.4283 acc=0.798 aux=0.2438 | val_f1=0.8345 | 14s
+    jepa       0.8216+/-0.0050
+  100% (3668 samples)
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8455.83it/s]
+  [bert-base-uncased/LR100/baseline/s42 ep1/3] loss=0.6009 acc=0.682 aux=0.0000 | val_f1=0.8281 | 12s
+  [bert-base-uncased/LR100/baseline/s42 ep2/3] loss=0.4728 acc=0.786 aux=0.0000 | val_f1=0.8776 | 12s
+  [bert-base-uncased/LR100/baseline/s42 ep3/3] loss=0.3674 acc=0.863 aux=0.0000 | val_f1=0.8843 | 12s
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8529.71it/s]
+  [bert-base-uncased/LR100/baseline/s43 ep1/3] loss=0.6207 acc=0.685 aux=0.0000 | val_f1=0.8135 | 12s
+  [bert-base-uncased/LR100/baseline/s43 ep2/3] loss=0.5377 acc=0.736 aux=0.0000 | val_f1=0.8506 | 12s
+  [bert-base-uncased/LR100/baseline/s43 ep3/3] loss=0.4538 acc=0.809 aux=0.0000 | val_f1=0.8614 | 12s
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8609.60it/s]
+  [bert-base-uncased/LR100/baseline/s44 ep1/3] loss=0.6093 acc=0.671 aux=0.0000 | val_f1=0.8355 | 12s
+  [bert-base-uncased/LR100/baseline/s44 ep2/3] loss=0.4820 acc=0.782 aux=0.0000 | val_f1=0.8746 | 12s
+  [bert-base-uncased/LR100/baseline/s44 ep3/3] loss=0.3902 acc=0.850 aux=0.0000 | val_f1=0.8788 | 12s
+    baseline   0.8463+/-0.0076
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8682.76it/s]
+  [bert-base-uncased/LR100/simcse/s42 ep1/3] loss=0.6501 acc=0.672 aux=0.4412 | val_f1=0.8268 | 21s
+  [bert-base-uncased/LR100/simcse/s42 ep2/3] loss=0.4877 acc=0.787 aux=0.1031 | val_f1=0.8567 | 21s
+  [bert-base-uncased/LR100/simcse/s42 ep3/3] loss=0.3836 acc=0.863 aux=0.0851 | val_f1=0.8682 | 21s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8664.92it/s]
+  [bert-base-uncased/LR100/simcse/s43 ep1/3] loss=0.6349 acc=0.698 aux=0.4389 | val_f1=0.8364 | 21s
+  [bert-base-uncased/LR100/simcse/s43 ep2/3] loss=0.4697 acc=0.802 aux=0.0941 | val_f1=0.8646 | 21s
+  [bert-base-uncased/LR100/simcse/s43 ep3/3] loss=0.3671 acc=0.865 aux=0.0936 | val_f1=0.8862 | 21s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8672.28it/s]
+  [bert-base-uncased/LR100/simcse/s44 ep1/3] loss=0.6491 acc=0.686 aux=0.4302 | val_f1=0.8277 | 21s
+  [bert-base-uncased/LR100/simcse/s44 ep2/3] loss=0.4774 acc=0.795 aux=0.1010 | val_f1=0.8581 | 21s
+  [bert-base-uncased/LR100/simcse/s44 ep3/3] loss=0.3783 acc=0.859 aux=0.0915 | val_f1=0.8759 | 21s
+    simcse     0.8566+/-0.0038
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8595.96it/s]
+  [bert-base-uncased/LR100/jepa/s42 ep1/3] loss=0.6154 acc=0.677 aux=0.5954 | val_f1=0.8272 | 26s
+  [bert-base-uncased/LR100/jepa/s42 ep2/3] loss=0.4584 acc=0.783 aux=0.1859 | val_f1=0.8625 | 26s
+  [bert-base-uncased/LR100/jepa/s42 ep3/3] loss=0.3369 acc=0.853 aux=0.1481 | val_f1=0.8774 | 26s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8677.20it/s]
+  [bert-base-uncased/LR100/jepa/s43 ep1/3] loss=0.5940 acc=0.694 aux=0.6376 | val_f1=0.8419 | 26s
+  [bert-base-uncased/LR100/jepa/s43 ep2/3] loss=0.4208 acc=0.807 aux=0.1965 | val_f1=0.8556 | 26s
+  [bert-base-uncased/LR100/jepa/s43 ep3/3] loss=0.3164 acc=0.858 aux=0.1568 | val_f1=0.8772 | 26s
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8223.23it/s]
+  [bert-base-uncased/LR100/jepa/s44 ep1/3] loss=0.6029 acc=0.679 aux=0.5898 | val_f1=0.8389 | 26s
+  [bert-base-uncased/LR100/jepa/s44 ep2/3] loss=0.4470 acc=0.785 aux=0.1771 | val_f1=0.8525 | 26s
+  [bert-base-uncased/LR100/jepa/s44 ep3/3] loss=0.3311 acc=0.860 aux=0.1431 | val_f1=0.8730 | 27s
+    jepa       0.8550+/-0.0023
+  [checkpoint] partial results saved → results/checkpoint_bert-base-uncased_partial.json
+
+-- QQP  (hybrid JEPA+SimCSE, epochs=3)
+  λ sweep (16200 train, 1800 tune, TUNE_EPOCHS=1, model=hybrid):
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8486.57it/s]
+    λ=0.05  tune_f1=0.7086
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8675.29it/s]
+    λ=0.1   tune_f1=0.7076
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 9251.49it/s]
+    λ=0.3   tune_f1=0.7086
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8902.23it/s]
+    λ=0.5   tune_f1=0.7072
+  → Best λ=0.05  (tune_f1=0.7086)
+  Seed 42
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 27324.90it/s]
+  [bert-base-uncased/QQP/baseline ep1/3] loss=0.5712 acc=0.700 aux=0.0000 | val_f1=0.7187 | 58s
+  [bert-base-uncased/QQP/baseline ep2/3] loss=0.4573 acc=0.802 aux=0.0000 | val_f1=0.7561 | 57s
+  [bert-base-uncased/QQP/baseline ep3/3] loss=0.4164 acc=0.831 aux=0.0000 | val_f1=0.7707 | 58s
+    baseline   f1=0.7696
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8128.90it/s]
+  [bert-base-uncased/QQP/simcse ep1/3] loss=0.6650 acc=0.707 aux=1.0191 | val_f1=0.7105 | 106s
+  [bert-base-uncased/QQP/simcse ep2/3] loss=0.5022 acc=0.803 aux=0.5615 | val_f1=0.7673 | 106s
+  [bert-base-uncased/QQP/simcse ep3/3] loss=0.4597 acc=0.833 aux=0.5278 | val_f1=0.7695 | 105s
+    simcse     f1=0.7633
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8676.47it/s]
+  [bert-base-uncased/QQP/hybrid ep1/3] loss=0.8603 acc=0.696 aux=0.6809 | val_f1=0.7088 | 181s
+  [bert-base-uncased/QQP/hybrid ep2/3] loss=0.6045 acc=0.796 aux=0.3053 | val_f1=0.7524 | 183s
+  [bert-base-uncased/QQP/hybrid ep3/3] loss=0.5544 acc=0.821 aux=0.2633 | val_f1=0.7611 | 179s
+    hybrid     f1=0.7612
+  Seed 43
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 24587.34it/s]
+  [bert-base-uncased/QQP/baseline ep1/3] loss=0.5685 acc=0.679 aux=0.0000 | val_f1=0.7488 | 56s
+  [bert-base-uncased/QQP/baseline ep2/3] loss=0.4481 acc=0.807 aux=0.0000 | val_f1=0.7668 | 56s
+  [bert-base-uncased/QQP/baseline ep3/3] loss=0.4063 acc=0.837 aux=0.0000 | val_f1=0.7702 | 55s
+    baseline   f1=0.7528
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 9161.83it/s]
+  [bert-base-uncased/QQP/simcse ep1/3] loss=0.6647 acc=0.702 aux=1.0431 | val_f1=0.7248 | 102s
+  [bert-base-uncased/QQP/simcse ep2/3] loss=0.4989 acc=0.806 aux=0.5633 | val_f1=0.7613 | 102s
+  [bert-base-uncased/QQP/simcse ep3/3] loss=0.4593 acc=0.833 aux=0.5334 | val_f1=0.7689 | 102s
+    simcse     f1=0.7627
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8823.80it/s]
+  [bert-base-uncased/QQP/hybrid ep1/3] loss=0.8671 acc=0.683 aux=0.6962 | val_f1=0.7284 | 174s
+  [bert-base-uncased/QQP/hybrid ep2/3] loss=0.6015 acc=0.799 aux=0.3079 | val_f1=0.7510 | 173s
+  [bert-base-uncased/QQP/hybrid ep3/3] loss=0.5535 acc=0.824 aux=0.2666 | val_f1=0.7630 | 174s
+    hybrid     f1=0.7533
+  Seed 44
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 9412.97it/s]
+  [bert-base-uncased/QQP/baseline ep1/3] loss=0.5654 acc=0.702 aux=0.0000 | val_f1=0.7385 | 55s
+  [bert-base-uncased/QQP/baseline ep2/3] loss=0.4467 acc=0.806 aux=0.0000 | val_f1=0.7696 | 55s
+  [bert-base-uncased/QQP/baseline ep3/3] loss=0.4078 acc=0.835 aux=0.0000 | val_f1=0.7788 | 55s
+    baseline   f1=0.7681
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 9207.88it/s]
+  [bert-base-uncased/QQP/simcse ep1/3] loss=0.6668 acc=0.695 aux=1.0265 | val_f1=0.7390 | 101s
+  [bert-base-uncased/QQP/simcse ep2/3] loss=0.5019 acc=0.805 aux=0.5648 | val_f1=0.7667 | 101s
+  [bert-base-uncased/QQP/simcse ep3/3] loss=0.4609 acc=0.830 aux=0.5308 | val_f1=0.7714 | 102s
+    simcse     f1=0.7589
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8972.99it/s]
+  [bert-base-uncased/QQP/hybrid ep1/3] loss=0.8629 acc=0.682 aux=0.6602 | val_f1=0.7357 | 175s
+  [bert-base-uncased/QQP/hybrid ep2/3] loss=0.6025 acc=0.796 aux=0.3009 | val_f1=0.7630 | 175s
+  [bert-base-uncased/QQP/hybrid ep3/3] loss=0.5579 acc=0.821 aux=0.2632 | val_f1=0.7653 | 175s
+    hybrid     f1=0.7556
+  [checkpoint] partial results saved → results/checkpoint_bert-base-uncased_partial.json
+
+-- PAWS  (adversarial, epochs=3)
+  λ sweep (18000 train, 2000 tune, TUNE_EPOCHS=1, model=jepa):
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 9169.15it/s]
+    λ=0.05  tune_f1=0.6853
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8755.36it/s]
+    λ=0.1   tune_f1=0.6795
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8634.04it/s]
+    λ=0.3   tune_f1=0.6830
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8707.84it/s]
+    λ=0.5   tune_f1=0.6699
+  → Best λ=0.05  (tune_f1=0.6853)
+  Seed 42
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8357.78it/s]
+  [bert-base-uncased/PAWS/baseline ep1/3] loss=0.6884 acc=0.550 aux=0.0000 | val_f1=0.4998 | 66s
+  [bert-base-uncased/PAWS/baseline ep2/3] loss=0.6459 acc=0.623 aux=0.0000 | val_f1=0.6798 | 66s
+  [bert-base-uncased/PAWS/baseline ep3/3] loss=0.5421 acc=0.734 aux=0.0000 | val_f1=0.7201 | 66s
+    baseline   f1=0.7151
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8194.84it/s]
+  [bert-base-uncased/PAWS/simcse ep1/3] loss=0.6974 acc=0.549 aux=0.0774 | val_f1=0.5186 | 119s
+  [bert-base-uncased/PAWS/simcse ep2/3] loss=0.6403 acc=0.627 aux=0.0145 | val_f1=0.6599 | 119s
+  [bert-base-uncased/PAWS/simcse ep3/3] loss=0.5276 acc=0.741 aux=0.0149 | val_f1=0.7297 | 120s
+    simcse     f1=0.7275
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8774.32it/s]
+  [bert-base-uncased/PAWS/jepa ep1/3] loss=0.6881 acc=0.563 aux=0.3668 | val_f1=0.5444 | 148s
+  [bert-base-uncased/PAWS/jepa ep2/3] loss=0.5625 acc=0.685 aux=0.0574 | val_f1=0.7727 | 148s
+  [bert-base-uncased/PAWS/jepa ep3/3] loss=0.3966 acc=0.816 aux=0.0362 | val_f1=0.8043 | 149s
+    jepa       f1=0.7980
+  Seed 43
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 9023.81it/s]
+  [bert-base-uncased/PAWS/baseline ep1/3] loss=0.6927 acc=0.539 aux=0.0000 | val_f1=0.0485 | 66s
+  [bert-base-uncased/PAWS/baseline ep2/3] loss=0.6231 acc=0.646 aux=0.0000 | val_f1=0.7388 | 66s
+  [bert-base-uncased/PAWS/baseline ep3/3] loss=0.4889 acc=0.778 aux=0.0000 | val_f1=0.7686 | 66s
+    baseline   f1=0.7640
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 9166.71it/s]
+  [bert-base-uncased/PAWS/simcse ep1/3] loss=0.6977 acc=0.548 aux=0.0787 | val_f1=0.2535 | 119s
+  [bert-base-uncased/PAWS/simcse ep2/3] loss=0.6368 acc=0.634 aux=0.0155 | val_f1=0.6708 | 120s
+  [bert-base-uncased/PAWS/simcse ep3/3] loss=0.5208 acc=0.746 aux=0.0137 | val_f1=0.7374 | 119s
+    simcse     f1=0.7388
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 9166.10it/s]
+  [bert-base-uncased/PAWS/jepa ep1/3] loss=0.6868 acc=0.567 aux=0.3825 | val_f1=0.3719 | 148s
+  [bert-base-uncased/PAWS/jepa ep2/3] loss=0.5550 acc=0.696 aux=0.0571 | val_f1=0.7740 | 151s
+  [bert-base-uncased/PAWS/jepa ep3/3] loss=0.3948 acc=0.814 aux=0.0370 | val_f1=0.8033 | 149s
+    jepa       f1=0.7972
+  Seed 44
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 9070.00it/s]
+  [bert-base-uncased/PAWS/baseline ep1/3] loss=0.6870 acc=0.552 aux=0.0000 | val_f1=0.4708 | 66s
+  [bert-base-uncased/PAWS/baseline ep2/3] loss=0.6625 acc=0.604 aux=0.0000 | val_f1=0.6234 | 66s
+  [bert-base-uncased/PAWS/baseline ep3/3] loss=0.5807 acc=0.694 aux=0.0000 | val_f1=0.6695 | 66s
+    baseline   f1=0.6726
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 9643.54it/s]
+  [bert-base-uncased/PAWS/simcse ep1/3] loss=0.6985 acc=0.552 aux=0.0759 | val_f1=0.3183 | 119s
+  [bert-base-uncased/PAWS/simcse ep2/3] loss=0.6407 acc=0.629 aux=0.0131 | val_f1=0.6639 | 118s
+  [bert-base-uncased/PAWS/simcse ep3/3] loss=0.5210 acc=0.748 aux=0.0145 | val_f1=0.7441 | 118s
+    simcse     f1=0.7351
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8773.86it/s]
+  [bert-base-uncased/PAWS/jepa ep1/3] loss=0.6869 acc=0.562 aux=0.3660 | val_f1=0.4843 | 148s
+  [bert-base-uncased/PAWS/jepa ep2/3] loss=0.5731 acc=0.684 aux=0.0558 | val_f1=0.7661 | 149s
+  [bert-base-uncased/PAWS/jepa ep3/3] loss=0.4077 acc=0.807 aux=0.0339 | val_f1=0.8006 | 149s
+    jepa       f1=0.7925
+  [checkpoint] partial results saved → results/checkpoint_bert-base-uncased_partial.json
+
+=======================================================  SUMMARY: bert-base-uncased
+  MRPC       baseline     0.8553+/-0.0116
+  MRPC       simcse       0.8502+/-0.0081
+  MRPC       jepa         0.8544+/-0.0022
+  QQP        baseline     0.7635+/-0.0076
+  QQP        simcse       0.7616+/-0.0019
+  QQP        hybrid       0.7567+/-0.0033
+  PAWS       baseline     0.7172+/-0.0374
+  PAWS       simcse       0.7338+/-0.0047
+  PAWS       jepa         0.7959+/-0.0024
+BERT checkpoint saved -> results/checkpoint_bert.json
+STAGE 1 COMPLETE

@@ -1,0 +1,48 @@
+# ---- Trained model checkpoints (~5 GB) — NOT distributed via git ----
+results/models/
+*.pt
+*.bin
+*.safetensors
+
+# ---- Local backups / scratch ----
+*.bak
+*.pre-revision.bak
+.ipynb_checkpoints/
+*_partial.json
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+jepa-env/
+
+# ---- HF / torch caches ----
+.cache/
+wandb/
+
+# ---- LaTeX build artifacts ----
+camera_ready/*.aux
+camera_ready/*.log
+camera_ready/*.out
+camera_ready/*.bbl
+camera_ready/*.blg
+camera_ready/*.synctex.gz
+camera_ready/*.fdb_latexmk
+camera_ready/*.fls
+camera_ready/*.pdf
+
+# ---- OS ----
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ---- Confidential review-process material (NOT for public release) ----
+RESPONSE_TO_REVIEWERS.md
+REVIEW_RESPONSE_AND_CLASSIFICATION.md
+RESUBMISSION_PLAN.md
+camera_ready/*Response_to_Reviewers.docx
+
+# ---- Redundant with main.tex + figs/; may contain the typeset PDF ----
+camera_ready/JEPA-Reg_ICCA2026_overleaf.zip

@@ -1,0 +1,452 @@
+{
+  "bert-base-uncased|baseline": {
+    "per_label": {
+      "constituent/entailed": [
+        0.4356,
+        5000
+      ],
+      "constituent/non-entailed": [
+        0.548,
+        5000
+      ],
+      "lexical_overlap/entailed": [
+        0.9646,
+        5000
+      ],
+      "lexical_overlap/non-entailed": [
+        0.0328,
+        5000
+      ],
+      "subsequence/entailed": [
+        0.9382,
+        5000
+      ],
+      "subsequence/non-entailed": [
+        0.0978,
+        5000
+      ]
+    },
+    "per_subcase": {
+      "constituent/ce_adverb": [
+        0.902,
+        1000
+      ],
+      "constituent/ce_after_since_clause": [
+        0.127,
+        1000
+      ],
+      "constituent/ce_conjunction": [
+        0.073,
+        1000
+      ],
+      "constituent/ce_embedded_under_since": [
+        0.157,
+        1000
+      ],
+      "constituent/ce_embedded_under_verb": [
+        0.919,
+        1000
+      ],
+      "constituent/cn_adverb": [
+        0.143,
+        1000
+      ],
+      "constituent/cn_after_if_clause": [
+        0.846,
+        1000
+      ],
+      "constituent/cn_disjunction": [
+        0.858,
+        1000
+      ],
+      "constituent/cn_embedded_under_if": [
+        0.804,
+        1000
+      ],
+      "constituent/cn_embedded_under_verb": [
+        0.089,
+        1000
+      ],
+      "lexical_overlap/le_around_prepositional_phrase": [
+        0.998,
+        1000
+      ],
+      "lexical_overlap/le_around_relative_clause": [
+        0.995,
+        1000
+      ],
+      "lexical_overlap/le_conjunction": [
+        0.949,
+        1000
+      ],
+      "lexical_overlap/le_passive": [
+        0.999,
+        1000
+      ],
+      "lexical_overlap/le_relative_clause": [
+        0.882,
+        1000
+      ],
+      "lexical_overlap/ln_conjunction": [
+        0.054,
+        1000
+      ],
+      "lexical_overlap/ln_passive": [
+        0.001,
+        1000
+      ],
+      "lexical_overlap/ln_preposition": [
+        0.028,
+        1000
+      ],
+      "lexical_overlap/ln_relative_clause": [
+        0.077,
+        1000
+      ],
+      "lexical_overlap/ln_subject/object_swap": [
+        0.004,
+        1000
+      ],
+      "subsequence/se_PP_on_obj": [
+        0.962,
+        1000
+      ],
+      "subsequence/se_adjective": [
+        0.98,
+        1000
+      ],
+      "subsequence/se_conjunction": [
+        0.902,
+        1000
+      ],
+      "subsequence/se_relative_clause_on_obj": [
+        0.87,
+        1000
+      ],
+      "subsequence/se_understood_object": [
+        0.977,
+        1000
+      ],
+      "subsequence/sn_NP/S": [
+        0.117,
+        1000
+      ],
+      "subsequence/sn_NP/Z": [
+        0.269,
+        1000
+      ],
+      "subsequence/sn_PP_on_subject": [
+        0.015,
+        1000
+      ],
+      "subsequence/sn_past_participle": [
+        0.035,
+        1000
+      ],
+      "subsequence/sn_relative_clause_on_subject": [
+        0.053,
+        1000
+      ]
+    }
+  },
+  "bert-base-uncased|simcse": {
+    "per_label": {
+      "constituent/entailed": [
+        0.4958,
+        5000
+      ],
+      "constituent/non-entailed": [
+        0.4708,
+        5000
+      ],
+      "lexical_overlap/entailed": [
+        0.9798,
+        5000
+      ],
+      "lexical_overlap/non-entailed": [
+        0.016,
+        5000
+      ],
+      "subsequence/entailed": [
+        0.9582,
+        5000
+      ],
+      "subsequence/non-entailed": [
+        0.0992,
+        5000
+      ]
+    },
+    "per_subcase": {
+      "constituent/ce_adverb": [
+        0.967,
+        1000
+      ],
+      "constituent/ce_after_since_clause": [
+        0.171,
+        1000
+      ],
+      "constituent/ce_conjunction": [
+        0.223,
+        1000
+      ],
+      "constituent/ce_embedded_under_since": [
+        0.197,
+        1000
+      ],
+      "constituent/ce_embedded_under_verb": [
+        0.921,
+        1000
+      ],
+      "constituent/cn_adverb": [
+        0.127,
+        1000
+      ],
+      "constituent/cn_after_if_clause": [
+        0.809,
+        1000
+      ],
+      "constituent/cn_disjunction": [
+        0.603,
+        1000
+      ],
+      "constituent/cn_embedded_under_if": [
+        0.722,
+        1000
+      ],
+      "constituent/cn_embedded_under_verb": [
+        0.093,
+        1000
+      ],
+      "lexical_overlap/le_around_prepositional_phrase": [
+        0.999,
+        1000
+      ],
+      "lexical_overlap/le_around_relative_clause": [
+        0.995,
+        1000
+      ],
+      "lexical_overlap/le_conjunction": [
+        0.994,
+        1000
+      ],
+      "lexical_overlap/le_passive": [
+        1.0,
+        1000
+      ],
+      "lexical_overlap/le_relative_clause": [
+        0.911,
+        1000
+      ],
+      "lexical_overlap/ln_conjunction": [
+        0.011,
+        1000
+      ],
+      "lexical_overlap/ln_passive": [
+        0.0,
+        1000
+      ],
+      "lexical_overlap/ln_preposition": [
+        0.005,
+        1000
+      ],
+      "lexical_overlap/ln_relative_clause": [
+        0.063,
+        1000
+      ],
+      "lexical_overlap/ln_subject/object_swap": [
+        0.001,
+        1000
+      ],
+      "subsequence/se_PP_on_obj": [
+        0.989,
+        1000
+      ],
+      "subsequence/se_adjective": [
+        0.979,
+        1000
+      ],
+      "subsequence/se_conjunction": [
+        0.975,
+        1000
+      ],
+      "subsequence/se_relative_clause_on_obj": [
+        0.904,
+        1000
+      ],
+      "subsequence/se_understood_object": [
+        0.944,
+        1000
+      ],
+      "subsequence/sn_NP/S": [
+        0.076,
+        1000
+      ],
+      "subsequence/sn_NP/Z": [
+        0.26,
+        1000
+      ],
+      "subsequence/sn_PP_on_subject": [
+        0.025,
+        1000
+      ],
+      "subsequence/sn_past_participle": [
+        0.038,
+        1000
+      ],
+      "subsequence/sn_relative_clause_on_subject": [
+        0.097,
+        1000
+      ]
+    }
+  },
+  "bert-base-uncased|jepa": {
+    "per_label": {
+      "constituent/entailed": [
+        0.6718,
+        5000
+      ],
+      "constituent/non-entailed": [
+        0.3242,
+        5000
+      ],
+      "lexical_overlap/entailed": [
+        0.9992,
+        5000
+      ],
+      "lexical_overlap/non-entailed": [
+        0.0034,
+        5000
+      ],
+      "subsequence/entailed": [
+        0.9934,
+        5000
+      ],
+      "subsequence/non-entailed": [
+        0.0132,
+        5000
+      ]
+    },
+    "per_subcase": {
+      "constituent/ce_adverb": [
+        0.979,
+        1000
+      ],
+      "constituent/ce_after_since_clause": [
+        0.4,
+        1000
+      ],
+      "constituent/ce_conjunction": [
+        0.408,
+        1000
+      ],
+      "constituent/ce_embedded_under_since": [
+        0.572,
+        1000
+      ],
+      "constituent/ce_embedded_under_verb": [
+        1.0,
+        1000
+      ],
+      "constituent/cn_adverb": [
+        0.111,
+        1000
+      ],
+      "constituent/cn_after_if_clause": [
+        0.663,
+        1000
+      ],
+      "constituent/cn_disjunction": [
+        0.406,
+        1000
+      ],
+      "constituent/cn_embedded_under_if": [
+        0.44,
+        1000
+      ],
+      "constituent/cn_embedded_under_verb": [
+        0.001,
+        1000
+      ],
+      "lexical_overlap/le_around_prepositional_phrase": [
+        1.0,
+        1000
+      ],
+      "lexical_overlap/le_around_relative_clause": [
+        0.999,
+        1000
+      ],
+      "lexical_overlap/le_conjunction": [
+        1.0,
+        1000
+      ],
+      "lexical_overlap/le_passive": [
+        1.0,
+        1000
+      ],
+      "lexical_overlap/le_relative_clause": [
+        0.997,
+        1000
+      ],
+      "lexical_overlap/ln_conjunction": [
+        0.0,
+        1000
+      ],
+      "lexical_overlap/ln_passive": [
+        0.0,
+        1000
+      ],
+      "lexical_overlap/ln_preposition": [
+        0.0,
+        1000
+      ],
+      "lexical_overlap/ln_relative_clause": [
+        0.017,
+        1000
+      ],
+      "lexical_overlap/ln_subject/object_swap": [
+        0.0,
+        1000
+      ],
+      "subsequence/se_PP_on_obj": [
+        1.0,
+        1000
+      ],
+      "subsequence/se_adjective": [
+        0.997,
+        1000
+      ],
+      "subsequence/se_conjunction": [
+        0.999,
+        1000
+      ],
+      "subsequence/se_relative_clause_on_obj": [
+        0.971,
+        1000
+      ],
+      "subsequence/se_understood_object": [
+        1.0,
+        1000
+      ],
+      "subsequence/sn_NP/S": [
+        0.024,
+        1000
+      ],
+      "subsequence/sn_NP/Z": [
+        0.028,
+        1000
+      ],
+      "subsequence/sn_PP_on_subject": [
+        0.0,
+        1000
+      ],
+      "subsequence/sn_past_participle": [
+        0.0,
+        1000
+      ],
+      "subsequence/sn_relative_clause_on_subject": [
+        0.014,
+        1000
+      ]
+    }
+  }
+}
