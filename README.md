@@ -1,7 +1,9 @@
-# JEPA-Reg: Label-Conditioned Joint-Embedding Predictive Regularization for Paraphrase Detection
+# JEPA-Reg: Predictive Representation Regularization Improves Robustness to Adversarial Lexical Overlap in Paraphrase Detection
 
 Code, analysis notebook, and per-seed result files for the paper
-*"JEPA-Reg: … Adversarial Lexical Overlap Robustness"* (ICCA 2026 submission ID #284).
+*"JEPA-Reg: Predictive Representation Regularization Improves Robustness to Adversarial
+Lexical Overlap in Paraphrase Detection"*, ICCA 2026 (4th International Conference on
+Computing Advancements, Dhaka, Bangladesh, October 15--16, 2026), paper #284.
 
 Everything reported in the paper can be regenerated from this repository.
 **No dataset files are included** — MRPC, QQP, PAWS and STS-B are downloaded from the
@@ -132,11 +134,14 @@ can be recomputed without a GPU** from the JSONs in this repository.
 ## 7. Citation
 
 ```bibtex
-@inproceedings{jepareg2026,
-  title     = {JEPA-Reg: Label-Conditioned Joint-Embedding Predictive Regularization
-               for Adversarial Lexical Overlap Robustness},
-  author    = {Ahmed, Saeef},
-  booktitle = {Proceedings of ICCA 2026},
+@inproceedings{ahmed2026jepareg,
+  title     = {JEPA-Reg: Predictive Representation Regularization Improves Robustness
+               to Adversarial Lexical Overlap in Paraphrase Detection},
+  author    = {Ahmed, Saeef Uddin and Abir, Irtiza Ahsan and Misra, Sandip and
+               Rudro, Mehedi Hasan and Salam, Abdus},
+  booktitle = {Proceedings of the 4th International Conference on Computing
+               Advancements (ICCA 2026)},
+  address   = {Dhaka, Bangladesh},
   year      = {2026}
 }
 ```
