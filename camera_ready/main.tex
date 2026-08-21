@@ -229,7 +229,7 @@ Baselines: \textbf{Baseline} (cross-entropy only), \textbf{SimCSE}~\cite{gao2021
 
 \subsection{Implementation and Evaluation}
 \label{sec:implementation}
-Table~\ref{tab:hyper} lists all hyperparameters. Code, the analysis notebook, and per-seed results JSONs are released at \url{https://github.com/saeefahmed/jepa-reg}. BERT-base numbers come from a full rerun of the released pipeline; RoBERTa-base numbers from the original run of the same code (per-seed values for both are in the released JSONs).
+Table~\ref{tab:hyper} lists all hyperparameters. Code, the analysis notebook, and per-seed results JSONs are released at \url{https://github.com/saeefahmed/jepa-reg}; the full software environment and reproducibility details are given in Appendix~\ref{app:repro}. BERT-base numbers come from a full rerun of the released pipeline; RoBERTa-base numbers from the original run of the same code (per-seed values for both are in the released JSONs).
 
 \begin{table}[!htb]
 \caption{Hyperparameter settings for training and evaluation.}
@@ -473,6 +473,7 @@ Figure~\ref{fig:tsne} shows t-SNE projections of [CLS] embeddings from the MRPC 
 \end{figure}
 
 \section{Reproducibility Statement}
+\label{app:repro}
 The code, the analysis notebook (including all revision experiments), and per-seed
 result files are available at \url{https://github.com/saeefahmed/jepa-reg}.
 \textbf{Hardware:} 1$\times$ NVIDIA RTX 5060 Ti (16\,GB); the full BERT-base pipeline
