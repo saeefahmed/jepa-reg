@@ -2,8 +2,7 @@
 %% Template: ACM acmart, sigconf (per ICCA_2026_LaTex_Template)
 %% TODO before submission:
 %%   1. Verify/complete the author block (name, affiliation, email) — currently a best guess.
-%%   2. Replace the repository URL placeholder in Sec. 4.2 and the Reproducibility statement.
-%%   3. Replace rights/DOI/ISBN commands with the values from your ACM rights form.
+%%   2. Replace rights/DOI/ISBN commands with the values from your ACM rights form.
 \documentclass[sigconf]{acmart}
 
 %% Keep floats within their own sections (prevents figures/tables drifting
@@ -230,7 +229,7 @@ Baselines: \textbf{Baseline} (cross-entropy only), \textbf{SimCSE}~\cite{gao2021
 
 \subsection{Implementation and Evaluation}
 \label{sec:implementation}
-Table~\ref{tab:hyper} lists all hyperparameters. Code, the analysis notebook, and per-seed results JSONs are released at \url{https://github.com/USERNAME/jepa-reg}.\footnote{TODO: replace with the actual repository URL.} BERT-base numbers come from a full rerun of the released pipeline; RoBERTa-base numbers from the original run of the same code (per-seed values for both are in the released JSONs).
+Table~\ref{tab:hyper} lists all hyperparameters. Code, the analysis notebook, and per-seed results JSONs are released at \url{https://github.com/saeefahmed/jepa-reg}. BERT-base numbers come from a full rerun of the released pipeline; RoBERTa-base numbers from the original run of the same code (per-seed values for both are in the released JSONs).
 
 \begin{table}[!htb]
 \caption{Hyperparameter settings for training and evaluation.}
@@ -474,6 +473,24 @@ Figure~\ref{fig:tsne} shows t-SNE projections of [CLS] embeddings from the MRPC 
 \end{figure}
 
 \section{Reproducibility Statement}
-Code, the analysis notebook (including all revision experiments), and per-seed results JSONs are released at \url{https://github.com/USERNAME/jepa-reg} (TODO: replace URL). Hardware: 1$\times$ NVIDIA RTX 5060 Ti (16 GB). Known asymmetry: label smoothing 0.05 (Baseline/SimCSE) vs.\ 0.0 (JEPA-Reg classification loss). Statistics: per-seed values in Tables~\ref{tab:bert}--\ref{tab:roberta}; the exact permutation floor $p=0.25$ at $n=3$ is stated in Section~\ref{sec:implementation}.
+The code, the analysis notebook (including all revision experiments), and per-seed
+result files are available at \url{https://github.com/saeefahmed/jepa-reg}.
+\textbf{Hardware:} 1$\times$ NVIDIA RTX 5060 Ti (16\,GB); the full BERT-base pipeline
+runs in approximately 2.5 hours.
+\textbf{Software:} Python 3.14.6, PyTorch 2.13.0+cu130, Transformers 5.14.1,
+Datasets 5.0.1, NumPy 2.5.1, SciPy 1.18.0, and scikit-learn 1.9.0; a complete
+environment lock is included in the repository. A CUDA 12.x PyTorch build imports
+successfully but cannot execute on this GPU's sm\_120 architecture.
+\textbf{Seeds:} 42, 43, 44.
+\textbf{Data:} MRPC, QQP, PAWS, and STS-B are obtained from the HuggingFace Hub and
+HANS from its official release; no dataset files are redistributed.
+\textbf{Known asymmetry:} label smoothing 0.05 (Baseline/SimCSE) vs.\ 0.0 (JEPA-Reg
+classification loss), which is an acknowledged confound; no matched label-smoothing
+control was run.
+\textbf{Statistics:} per-seed values are reported in
+Tables~\ref{tab:bert}--\ref{tab:roberta}; the exact permutation-test floor $p=0.25$
+at $n=3$ is stated in Section~\ref{sec:implementation}.
+Trained checkpoints are omitted for size, but per-example predictions are released,
+so every reported statistic and figure can be recomputed without a GPU.
 
 \end{document}
